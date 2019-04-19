@@ -1,0 +1,2 @@
+NOTES:
+1. supervisord is used to keep app.py running after boot. see /etc/supervisor/supervisord.conf
