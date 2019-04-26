@@ -1,0 +1,9 @@
+NOTES:
+1. supervisord is used to keep runcontrol.sh running after boot. see /etc/supervisor/supervisord.conf
+
+Make following entry in the file
+
+[program:hoverpi]
+command = sudo /home/pi/hoverpi/web2/runcontrol.sh
+stdout_logfile = /var/log/hoverpi.log
+stderr_logfile = /var/log/hoverpi-err.log

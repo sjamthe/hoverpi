@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<title>hoverpi control</title>
+<link rel="stylesheet" href="/static/pistyle.css" />
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<script>
+function displayDate() {
+  document.getElementById("resultval").innerHTML = Date();
+}
+
+function displayResponse() {
+  var data = JSON.parse(this.responseText);
+  document.getElementById("resultval").innerHTML = data.result;
+}
+
+function cmd(url) {
+  var request = new XMLHttpRequest();
+  request.addEventListener('load', displayResponse);
+  request.open('GET', url);
+  request.send();
+}
+
+</script>
+
+<center>
+      <img src="http://100.99.132.62:8080/?action=stream" />
+<div>
+<table>
+<tr>
+<td> <div class="onoff" onclick="cmd('/on')" >ON</div> </td>
+<td>&nbsp;</td> <td>&nbsp;</td>
+<td><div class="button" onclick="cmd('/forward')">&#10224;</div></td><td>&nbsp;</td></tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><div class="button" onclick="cmd('/left')">&nbsp;&#10226;&nbsp;</div></td>
+<td>&nbsp;</td>
+<td><div class="button" onclick="cmd('/right')">&nbsp;&#10227;&nbsp;</div></td></tr>
+<tr>
+<td> <div class="onoff" onclick="cmd('/off')">OFF</div> </td>
+<td>&nbsp;</td><td>&nbsp;</td>
+<td><div class="button" onclick="cmd('/backward')">&#10225;</div></td><td>&nbsp;</td></tr>
+</table>
+</div>
+<p>
+<div id='resultval'> </div>
+</p>
+</center>
+</body>
+</html>
