@@ -1,2 +1,9 @@
 NOTES:
 1. supervisord is used to keep app.py running after boot. see /etc/supervisor/supervisord.conf
+
+Make following entry in the file
+
+[program:hoverpi]
+command = sudo /usr/bin/python3 /home/pi/hoverpi/web/app.py
+stdout_logfile = /var/log/hoverpi.log
+stderr_logfile = /var/log/hoverpi-err.log
