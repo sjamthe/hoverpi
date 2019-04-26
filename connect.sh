@@ -7,10 +7,13 @@
 # Example: connect.sh /dev/ttyS0 9600
 
 # Set up device
-stty -F $1 $2
+#stty -F $1 $2
+tty=/dev/ttyACM0
+baud=500000
+stty -F $tty $baud
 
 # Let cat read the device $1 in the background
-cat $1 &
+cat $tty &
 
 # Capture PID of background process so it is possible to terminate it when done
 bgPid=$!
@@ -19,7 +22,7 @@ bgPid=$!
 while read cmd
 do
    echo "$cmd" 
-done > $1
+done > $tty
 
 # Terminate background read process
 kill $bgPid
