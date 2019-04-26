@@ -30,10 +30,12 @@ def take_pics(e, t):
     while not e.isSet():
         event_is_set = e.wait(t) #secs to wait before taking pic
         if event_is_set:
+            camera.stop_preview()
             camera.close()
+            print("camera turned off");
             break #exit if off is called
         else:
-            #print("talking pic %s",i);
+            print("talking pic %s",i);
             camera.capture(img)
             i+=1
 
@@ -43,12 +45,15 @@ def saveimage(cmdstr):
         return
     destdir=dest + cmd0 
     filecnt = len(os.listdir(destdir))
-    destfile=destdir + '/' + cmdstr + '-' + filecnt + '.jpg'
+    destfile=destdir + '/' + cmd0 + '-' + str(filecnt) + '.jpg'
+    if(os.path.getsize(img) == 0):
+        print("Waiting for img to be ready ...")
+        sleep(1)
     copyfile(img,destfile)
 
 def cmd(cmdstr):
     tty='/dev/ttyACM0'
-    saveimage(cmdstr)
+    #saveimage(cmdstr)
     with serial.Serial(tty, 500000, timeout=10) as ser:
         sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
         sio.write(cmdstr + '\n')
@@ -57,7 +62,7 @@ def cmd(cmdstr):
 def cmd_on():
     t1 = threading.Thread(name='camera',
                   target=take_pics,
-                  args=(e, 1))
+                  args=(e, 2))
     t1.start()
     cmd('on')
 
@@ -67,4 +72,5 @@ def cmd_off():
 
 #cmd_on()
 #sleep(10)
+#cmd('l 100')
 #cmd_off()

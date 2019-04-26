@@ -25,22 +25,22 @@ def off():
 
 @app.route('/left/')
 def left():
-    cmd('l 1000')
+    cmd('l 4')
     return render_template('index.html', id=randint(0,65535))
 
 @app.route('/right/')
 def right():
-    cmd('r 1000')
+    cmd('r 6')
     return render_template('index.html', id=randint(0,65535))
 
 @app.route('/forward/')
 def forward():
-    cmd('f 2000')
+    cmd('f 10')
     return render_template('index.html', id=randint(0,65535))
 
 @app.route('/reverse/')
 def reverse():
-    cmd('b 2000')
+    cmd('b 5')
     return render_template('index.html', id=randint(0,65535))
 
 if __name__ == '__main__':
